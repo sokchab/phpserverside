@@ -25,6 +25,7 @@
                 <th>Name</th>
                 <th>Salary</th>
                 <th>Age</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tfoot>
@@ -33,10 +34,19 @@
                 <th>Name</th>
                 <th>Salary</th>
                 <th>Age</th>
+                <th>Action</th>
             </tr>
             </tfoot>
         </table>
+
+        <!--create modal dialog for display detail info for edit on button cell click-->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div id="content-data"></div>
+            </div>
+        </div>
     </div>
+
 
     <script>
         $(document).ready(function(){
@@ -47,6 +57,26 @@
                     url:"fetch.php",
                     type:"post"
                 }
+            });
+        });
+    </script>
+    <!--script js for get edit data-->
+    <script>
+        $(document).on('click','#getEdit',function(e){
+            e.preventDefault();
+            var per_id=$(this).data('id');
+            //alert(per_id);
+            $('#content-data').html('');
+            $.ajax({
+                url:'editdata.php',
+                type:'POST',
+                data:'id='+per_id,
+                dataType:'html'
+            }).done(function(data){
+                $('#content-data').html('');
+                $('#content-data').html(data);
+            }).fial(function(){
+                $('#content-data').html('<p>Error</p>');
             });
         });
     </script>
